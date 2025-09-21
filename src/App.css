@@ -124,6 +124,23 @@
   background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
 }
 
+/* 防止外部擴展干擾 */
+.driveon-clean {
+  position: relative;
+  z-index: 1000;
+}
+
+.driveon-clean::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: -1;
+}
+
 .driveon-card {
   @apply bg-white rounded-xl shadow-lg border border-gray-100 p-6 transition-all duration-300;
 }
