@@ -322,10 +322,7 @@ function App() {
                     描述資訊
                   </label>
                   <textarea
-                    value={carContent.hero_background_discount && 
-                           carContent.hero_background_discount !== 'hero_background_discount' && 
-                           carContent.hero_background_discount !== 'hero_background_link' ? 
-                           carContent.hero_background_discount : ''}
+                    value={carContent.hero_background_discount || ''}
                     onChange={(e) => setCarContent(prev => ({
                       ...prev,
                       hero_background_discount: e.target.value
@@ -342,10 +339,7 @@ function App() {
                   </label>
                   <input
                     type="text"
-                    value={carContent.hero_background_link && 
-                           carContent.hero_background_link !== 'hero_background_link' && 
-                           carContent.hero_background_link !== 'hero_background_discount' ? 
-                           carContent.hero_background_link : ''}
+                    value={carContent.hero_background_link || ''}
                     onChange={(e) => setCarContent(prev => ({
                       ...prev,
                       hero_background_link: e.target.value
