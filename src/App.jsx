@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Button } from '@/components/ui/button.jsx'
+// import { Button } from './components/ui/button.jsx'
 import { Plus } from 'lucide-react'
 import ContentCard from './components/ContentCard'
 import StatsCard from './components/StatsCard'
@@ -113,9 +113,9 @@ function App() {
           <div className="text-red-600 text-center">
             <h2 className="text-xl font-bold mb-4">發生錯誤</h2>
             <p className="mb-4">{error}</p>
-            <Button onClick={loadCarContent} className="driveon-button">
+            <button onClick={loadCarContent} className="driveon-button">
               重新載入
-            </Button>
+            </button>
           </div>
         </div>
       </div>
@@ -141,7 +141,7 @@ function App() {
 
         {/* 控制面板 */}
         <div className="bg-white rounded-xl p-6 mb-6 shadow-lg driveon-clean">
-          <Button 
+          <button 
             className="driveon-button flex items-center"
             onClick={() => {
               setLoading(true)
@@ -150,7 +150,7 @@ function App() {
           >
             <Plus className="w-4 h-4 mr-2" />
             重新刷新頁
-          </Button>
+          </button>
         </div>
 
         {/* 內容管理卡片 */}
@@ -319,9 +319,29 @@ function App() {
 
                 <div>
                   <label className="block text-sm font-medium text-gray-600 mb-2">
-                    背景連結
+                    描述資訊
                   </label>
                   <textarea
+                    value={carContent.hero_background_discount && 
+                           carContent.hero_background_discount !== 'hero_background_discount' && 
+                           carContent.hero_background_discount !== 'hero_background_link' ? 
+                           carContent.hero_background_discount : ''}
+                    onChange={(e) => setCarContent(prev => ({
+                      ...prev,
+                      hero_background_discount: e.target.value
+                    }))}
+                    placeholder="請輸入背景圖片描述資訊"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 min-h-[80px]"
+                    rows={3}
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-600 mb-2">
+                    連結網址
+                  </label>
+                  <input
+                    type="text"
                     value={carContent.hero_background_link && 
                            carContent.hero_background_link !== 'hero_background_link' && 
                            carContent.hero_background_link !== 'hero_background_discount' ? 
@@ -330,15 +350,15 @@ function App() {
                       ...prev,
                       hero_background_link: e.target.value
                     }))}
-                    placeholder="請輸入背景點擊連結（可選）"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 min-h-[80px]"
-                    rows={3}
+                    placeholder="請輸入連結網址"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
 
                 <button 
                   onClick={() => handleMultipleUpdates({
                     hero_background_image: carContent.hero_background_image,
+                    hero_background_discount: carContent.hero_background_discount,
                     hero_background_link: carContent.hero_background_link
                   })}
                   disabled={updating}
