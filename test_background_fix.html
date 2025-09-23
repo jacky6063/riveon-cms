@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>背景圖片欄位對應測試</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .test-container { max-width: 600px; margin: 0 auto; }
+        .field-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input, textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; }
+        textarea { min-height: 80px; }
+        button { background: #007bff; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; }
+        .result { margin-top: 20px; padding: 10px; background: #f8f9fa; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>背景圖片欄位對應測試</h1>
+        
+        <div class="field-group">
+            <label>圖片 URL (hero_background_image)</label>
+            <input type="text" id="imageUrl" placeholder="請輸入背景圖片網址">
+        </div>
+        
+        <div class="field-group">
+            <label>描述資訊 (應對應到 hero_background_discount)</label>
+            <textarea id="description" placeholder="請輸入背景圖片描述資訊"></textarea>
+        </div>
+        
+        <div class="field-group">
+            <label>連結網址 (應對應到 hero_background_link)</label>
+            <input type="text" id="linkUrl" placeholder="請輸入連結網址">
+        </div>
+        
+        <button onclick="testUpdate()">測試更新</button>
+        
+        <div class="result" id="result" style="display: none;">
+            <h3>測試結果：</h3>
+            <div id="resultContent"></div>
+        </div>
+    </div>
+
+    <script>
+        function testUpdate() {
+            const imageUrl = document.getElementById('imageUrl').value;
+            const description = document.getElementById('description').value;
+            const linkUrl = document.getElementById('linkUrl').value;
+            
+            // 模擬正確的欄位對應
+            const updateData = {
+                hero_background_image: imageUrl,
+                hero_background_discount: description,  // 描述資訊對應到 discount
+                hero_background_link: linkUrl          // 連結網址對應到 link
+            };
+            
+            // 顯示結果
+            const resultDiv = document.getElementById('result');
+            const resultContent = document.getElementById('resultContent');
+            
+            resultContent.innerHTML = `
+                <p><strong>hero_background_image:</strong> ${updateData.hero_background_image}</p>
+                <p><strong>hero_background_discount:</strong> ${updateData.hero_background_discount}</p>
+                <p><strong>hero_background_link:</strong> ${updateData.hero_background_link}</p>
+                <hr>
+                <p style="color: green;"><strong>✅ 欄位對應正確！</strong></p>
+                <p>描述資訊 → hero_background_discount</p>
+                <p>連結網址 → hero_background_link</p>
+            `;
+            
+            resultDiv.style.display = 'block';
+            
+            console.log('正確的欄位對應:', updateData);
+        }
+    </script>
+</body>
+</html>
