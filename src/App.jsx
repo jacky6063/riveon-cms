@@ -281,17 +281,73 @@ function App() {
             />
 
             {/* 背景圖片 */}
-            <ContentCard
-              title="背景圖片"
-              imageUrl={carContent.hero_background_image}
-              description={carContent.hero_background_link}
-              linkUrl=""
-              onUpdate={(updates) => handleMultipleUpdates({
-                hero_background_image: updates.imageUrl,
-                hero_background_link: updates.description
-              })}
-              isLoading={updating}
-            />
+            <div className="driveon-card">
+              <div className="flex items-center mb-4">
+                <span className="driveon-status-indicator"></span>
+                <h3 className="text-lg font-semibold text-gray-800">背景圖片</h3>
+              </div>
+              
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-600 mb-2">
+                    圖片 URL
+                  </label>
+                  <input
+                    type="text"
+                    value={carContent.hero_background_image || ''}
+                    onChange={(e) => setCarContent(prev => ({
+                      ...prev,
+                      hero_background_image: e.target.value
+                    }))}
+                    placeholder="請輸入背景圖片網址"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+
+                {carContent.hero_background_image && (
+                  <div className="mt-3">
+                    <img 
+                      src={carContent.hero_background_image} 
+                      alt="背景圖片預覽"
+                      className="w-full h-32 object-cover rounded-lg border border-gray-200"
+                      onError={(e) => {
+                        e.target.style.display = 'none'
+                      }}
+                    />
+                  </div>
+                )}
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-600 mb-2">
+                    背景連結
+                  </label>
+                  <textarea
+                    value={carContent.hero_background_link && 
+                           carContent.hero_background_link !== 'hero_background_link' && 
+                           carContent.hero_background_link !== 'hero_background_discount' ? 
+                           carContent.hero_background_link : ''}
+                    onChange={(e) => setCarContent(prev => ({
+                      ...prev,
+                      hero_background_link: e.target.value
+                    }))}
+                    placeholder="請輸入背景點擊連結（可選）"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 min-h-[80px]"
+                    rows={3}
+                  />
+                </div>
+
+                <button 
+                  onClick={() => handleMultipleUpdates({
+                    hero_background_image: carContent.hero_background_image,
+                    hero_background_link: carContent.hero_background_link
+                  })}
+                  disabled={updating}
+                  className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 disabled:opacity-50"
+                >
+                  {updating ? '更新中...' : '更新內容'}
+                </button>
+              </div>
+            </div>
           </div>
         )}
       </div>
